@@ -1,0 +1,134 @@
+spring:
+  freemarker:
+    cache: false
+    request-context-attribute: request
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    druid:
+      dingpush:  #钉钉推送数据源
+        url: jdbc:mysql://47.96.94.191:3306/ding_cloud_push?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+        username: ding_cloud_push
+        password: ding_cloud_push
+      first:  #数据源1
+        url: jdbc:mysql://47.96.94.191:3306/community_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+        username: community
+        password: 2018520..
+      second:  #数据源2 只读库
+        url: jdbc:mysql://47.96.94.191:3306/community_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+        username: community
+        password: 2018520..
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      connectionInitSqls: SET NAMES utf8mb4
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+          #login-username: admin
+          #login-password: admin
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+  # redis config
+  redis:
+          #Redis数据库索引（默认为0）
+          database: 10
+          host: 47.96.94.191
+          password: 2018520..
+          port: 1109
+          jedis:
+              pool:
+                  #连接池最大连接数（默认为8，负数表示无限）
+                  max-active: 1000
+                  #连接池中的最大空闲连接（默认为8，负数表示无限）
+                  max-idle: 10
+                  #连接池最大阻塞等待时间（默认为-1，单位为毫秒，负数表示无限）
+                  max-wait: -1
+                  # 连接池中的最小空闲连接（默认为0，该值只有为正数才有作用）
+                  min-idle: 5
+          open: false
+          #连接超时时间（毫秒）
+          timeout: 20000
+          cluster:
+            max-redirects:
+
+# 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.pine.kasa.entity  # 注意：对应实体类的路径
+
+# 通用mapper
+mapper:
+  mappers: tk.mybatis.mapper.common.BaseMapper
+  not-empty: false
+  identity: MYSQL
+
+
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  # true 没有数据的页数永远查最后一页
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+
+server:
+  port: 8080
+  servlet:
+    context-path: /community
+  tomcat:
+    uri-encoding: utf-8
+
+
+logging:
+  config: classpath:logback/logback-dev.xml
+
+---
+
+picture:
+   url: https://media.forwe.store/community/image/portal_default.jpg
+
+environment:
+ sign: test
+
+
+yuming:
+  url: https://pretest.forwe.store
+
+
+
+web-config: #自定义的属性和值
+  root-upload-path: community-test
+  parent-folder: /community
+  domain-name: https://pretest.forwe.store
+  suite-id: 4392002
+  appid: 10469
+  webhook: https://oapi.dingtalk.com/robot/send?access_token=1367d77354cab77afcfcfc9ddc2a79f448c8a94bad022389e3fcfe7e02080b01
+  working-group-webhook: https://oapi.dingtalk.com/robot/send?access_token=1367d77354cab77afcfcfc9ddc2a79f448c8a94bad022389e3fcfe7e02080b01
+  listprop1:
+    - name: abc
+      value: abcValue
+    - name: efg
+      value: efgValue
+  listprop2:
+    - config2Value1
+    - config2Vavlue2
+  mapprops:
+    key1: value1
+    key2: value2

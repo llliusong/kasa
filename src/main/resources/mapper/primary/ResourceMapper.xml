@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pine.kasa.dao.primary.ResourceMapper">
+	<resultMap id="BaseResultMap" type="com.pine.kasa.entity.primary.Resources">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="value" jdbcType="VARCHAR" property="value" />
+		<result column="parent_id" jdbcType="INTEGER" property="parentId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="project" jdbcType="INTEGER" property="project" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+	</resultMap>
+
+	<sql id="Base_Column_List" >
+		id,`value`,parent_id,`name`,project,create_time,update_time,status
+	</sql>
+
+	<sql id="base_resourcevo_list" >
+		cr.id AS id,cr.value AS value,cr.parent_id AS parentId,cr.name AS name
+	</sql>
+
+	<!-- Created by pine on 2018-03-22 18:04:48 -->
+
+	<!--获取不拦截的url-->
+	<select id="getNoLoginUrls" resultType="java.lang.String">
+		SELECT pr.value FROM cc_resource pr RIGHT JOIN cc_role_resource prr ON pr.id=prr.resource_id
+		WHERE prr.role_id = 4 AND prr.status=1 AND pr.status=1 AND pr.project = 0 AND pr.type = 0
+	</select>
+
+	<select id="findShiroResourcesByRoleIds" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+		FROM cc_resource sr, cc_role_resource sgr
+		<where>
+			sr.id = sgr.resource_id
+			AND sr.status = 1
+			AND  sgr.status = 1
+			AND sr.project = 0
+			AND sgr.role_id IN
+			<foreach collection="roleIdList" open="(" item="item" close=")" separator=",">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+
+	<select id="findAllResource" resultMap="BaseResultMap">
+		  SELECT  <include refid="Base_Column_List"/>
+		  FROM cc_resource
+		  WHERE status = 1
+	</select>
+
+	<select id="findAllAnonResource" resultType="com.pine.kasa.pojo.vo.permission.ResourceVO">
+		SELECT <include refid="base_resourcevo_list"/>
+		FROM cc_resource cr LEFT JOIN cc_role_resource crr on cr.id = crr.resource_id
+		WHERE crr.role_id = 1
+	</select>
+
+	<select id="findResourceByRoleId" resultType="com.pine.kasa.pojo.vo.permission.ResourceVO">
+		SELECT  <include refid="Base_Column_List"/>
+		FROM cc_resource
+		WHERE status = 1
+	</select>
+
+	<select id="findPermissionUrlByUserIdAndCompanyId" resultType="String">
+		SELECT cr.value AS value
+		FROM cc_resource cr LEFT JOIN cc_role_resource crr on cr.id = crr.resource_id RIGHT JOIN cc_role_user cru on crr.role_id = cru.user_id
+		WHERE cru.user_id = #{userId} AND cru.company_id = #{companyId} AND cru.status = 1 AND cr.status = 1
+	</select>
+	
+	<select id="findPermissionUrlByRoleId" resultType="String">
+		SELECT cr.value AS value
+		FROM cc_resource cr LEFT JOIN cc_role_resource crr on cr.id = crr.resource_id
+		WHERE 1=1 AND cr.status = 1 AND crr.status = 1 and crr.role_id in
+		<foreach collection="roleIds" index="index" item="roleId" separator="," open="(" close=")">
+			#{roleId}
+		</foreach>
+	</select>
+</mapper>

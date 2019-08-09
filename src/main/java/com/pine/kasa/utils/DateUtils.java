@@ -15,13 +15,13 @@ public class DateUtils {
     private static Log log = LogFactory.getLog(DateUtils.class);
 
     public static final String FORMATER_YYYY_MM_DD = "yyyy-MM-dd";
-    public static final String FORMATER_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    public static final String FORMATER_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:permission";
     public static final String FORMATERYYYYMMDD = "yyyyMMdd";
     //    public static final String FORMATER_YYYYMMDD = "yyyy/MM/dd";
     public static final String FORMATER_YYYYMMDD = "yyyy-MM-dd";
     public static final String FORMAT_YMDHMSS = "yyyyMMddHHmmssSSS";
-    private static final String FORMAT_YMD_HMS = "yyyy-MM-dd HH:mm:ss";
-    private static final String FORMAT_YMDHMS5 = "yyyy-MM-dd HH:mm:ss.SSS";
+    private static final String FORMAT_YMD_HMS = "yyyy-MM-dd HH:mm:permission";
+    private static final String FORMAT_YMDHMS5 = "yyyy-MM-dd HH:mm:permission.SSS";
     public static final String FORMAT_YMDHMS_STR = "yyyy年MM月dd日";
     public static final String FORMAT_YMDHMS = "yyyyMMddHHmmss";
 
@@ -147,7 +147,7 @@ public class DateUtils {
     /**
      * 按照给定的格式，格式化日期
      *
-     * @param formater 需要的格式，常用的例如"yyyy-MM-dd HH:mm:ss"
+     * @param formater 需要的格式，常用的例如"yyyy-MM-dd HH:mm:permission"
      * @param date     日期
      * @return
      */
@@ -159,7 +159,7 @@ public class DateUtils {
     /**
      * 按照给定的格式，格式化日期
      *
-     * @param formater 需要的格式，常用的例如"yyyy-MM-dd HH:mm:ss"
+     * @param formater 需要的格式，常用的例如"yyyy-MM-dd HH:mm:permission"
      * @param s        可格式化为日期的字符串
      * @return
      */
@@ -169,13 +169,13 @@ public class DateUtils {
     }
 
     /**
-     * 获取当前时间 （yyyy-MM-dd HH:mm:ss）
+     * 获取当前时间 （yyyy-MM-dd HH:mm:permission）
      *
-     * @return 当前时间 （yyyy-MM-dd HH:mm:ss）
+     * @return 当前时间 （yyyy-MM-dd HH:mm:permission）
      */
     public static String current() {
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:permission");
         return dateFormat.format(date);
 
     }
@@ -196,7 +196,7 @@ public class DateUtils {
      * 字符串转化为日期</br>
      *
      * @param str    需要被转换为日期的字符串
-     * @param format 格式，常用的为 yyyy-MM-dd HH:mm:ss
+     * @param format 格式，常用的为 yyyy-MM-dd HH:mm:permission
      * @return java.util.Date，如果出错会返回null
      */
     public static Date StringToDate(String str, String format) {
@@ -219,7 +219,7 @@ public class DateUtils {
      * @return java.util.Date，如果出错会返回null
      */
     public static Date StringToDate(String str) {
-        return StringToDate(str, "yyyy-MM-dd HH:mm:ss");
+        return StringToDate(str, "yyyy-MM-dd HH:mm:permission");
     }
 
     /**
@@ -358,7 +358,7 @@ public class DateUtils {
     }
 
     public static long getUnixDate() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:permission");
         Date d = new Date();
         String t = df.format(d);
         long epoch = 0;
@@ -748,7 +748,7 @@ public class DateUtils {
 
     public static String getLastDayOfMonth(Integer year, Integer month) {
         Date cur_date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:permission");
         if (cur_date.getMonth() == Integer.valueOf(month) - 1) {
             return sdf.format(cur_date);
         }
@@ -934,7 +934,7 @@ public class DateUtils {
      * 获得date时间
      *
      * @param date
-     * @return yyyy-MM-dd HH:mm:ss
+     * @return yyyy-MM-dd HH:mm:permission
      */
     public static String getDisplayYMDHMS(Date date) {
         return new SimpleDateFormat(FORMAT_YMD_HMS).format(date);
@@ -956,7 +956,7 @@ public class DateUtils {
     }
 
     /**
-     * 时间戳转换为yyyy-MM-dd HH:mm:ss:SSS 格式日期
+     * 时间戳转换为yyyy-MM-dd HH:mm:permission:SSS 格式日期
      *
      * @param timestamp 时间戳
      * @return 日期

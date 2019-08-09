@@ -174,6 +174,11 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
         </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <!--<dependency>-->
         <!--<groupId>commons-codec</groupId>-->
@@ -215,6 +220,41 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- shiro -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis</artifactId>
+            <version>3.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-beanutils</artifactId>
+                    <groupId>commons-beanutils</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>shiro-core</artifactId>
+                    <groupId>org.apache.shiro</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--加密-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>4.1.2.RELEASE</version>
+        </dependency>
+        <!---->
+
     </dependencies>
 
     <build>
@@ -252,6 +292,14 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <!-- maven打包动态修改替换占位符 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <profiles>
@@ -259,9 +307,19 @@
             <id>dev</id>
             <properties>
                 <spring.active>dev</spring.active>
-                <logback.path>/Users/lius/IdeaProjects/logs/community-web</logback.path>
+                <logback.path>/Users/lius/IdeaProjects/logs/kasa</logback.path>
                 <logback.level>debug</logback.level>
                 <packageName>community</packageName>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <spring.active>dev</spring.active>
+                <logback.path>/alidata/www/kasa/logs</logback.path>
+                <logback.level>debug</logback.level>
+                <packageName>kasa</packageName>
             </properties>
         </profile>
     </profiles>

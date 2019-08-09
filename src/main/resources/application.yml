@@ -3,6 +3,9 @@ spring:
     #    active: dev
     active: ${spring.active}
 
+logging:
+  config: classpath:logback/logback.xml
+
 
 info:
   app:

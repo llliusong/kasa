@@ -28,6 +28,15 @@
         FROM
             cc_user
         WHERE
-            mobile = #{mobile}
+            mobile = #{mobile} AND status = 1
   </select>
+
+    <select id="getUserByUserId" resultMap="BaseResultMap">
+        SELECT
+          <include refid="base_sql"/>
+        FROM
+          cc_user
+        WHERE
+          id = #{id} AND status = 1
+    </select>
 </mapper>

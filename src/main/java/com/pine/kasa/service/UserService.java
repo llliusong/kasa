@@ -12,5 +12,7 @@ public interface UserService {
 
     User getUser(String mobile);
 
+    User getUser(Integer userId);
+
     void create(UserDTO dto);
 }

@@ -6,4 +6,6 @@ import tk.mybatis.mapper.common.Mapper;
 public interface UserMapper extends Mapper<User> {
 
     User getUserByMobile(String mobile);
+
+    User getUserByUserId(Integer id);
 }

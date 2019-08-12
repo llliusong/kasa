@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUserByMobile(mobile);
     }
 
+    @Override
+    public User getUser(Integer userId){
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)

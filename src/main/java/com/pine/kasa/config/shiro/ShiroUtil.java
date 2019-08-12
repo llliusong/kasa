@@ -60,7 +60,7 @@ public class ShiroUtil {
     /**
      * 删除用户缓存信息
      *
-     * @param username        用户名 username = corpId + dingUserId
+     * @param username        用户名 username = mobile
      * @param isRemoveSession 是否删除session，删除后用户需重新登录
      */
     public static void kickOutUser(String username, boolean isRemoveSession) {
@@ -99,26 +99,13 @@ public class ShiroUtil {
         ((LogoutAware) authc).onLogout((SimplePrincipalCollection) attribute);
     }
 
-    /**
-     * 删除用户缓存信息
-     *
-     * @param userId
-     * @param companyId
-     * @param isRemoveSession
-     */
-    public static void kickOutUser(Integer userId, Integer companyId, boolean isRemoveSession) {
-        String username = getShiroUserName(userId, companyId);
-        kickOutUser(username, isRemoveSession);
-    }
-
     public static String getShiroUserName(Integer userId, Integer companyId) {
         return userId + "|" + companyId;
     }
 
 
-    public static void updateUserRole(Integer userId, Integer companyId, boolean isRemoveSession) {
-        String username = getShiroUserName(userId, companyId);
-        Session session = getSessionByUsername(username);
+    public static void updateUserRole(String userName, boolean isRemoveSession) {
+        Session session = getSessionByUsername(userName);
         if (session == null) {
             return;
         }
@@ -134,7 +121,7 @@ public class ShiroUtil {
         }
 
         MyUserInfo user = (MyUserInfo) ((SimplePrincipalCollection) attribute).getPrimaryPrincipal();
-        if (!username.equals(user.getMobile())) {
+        if (!userName.equals(user.getMobile())) {
             return;
         }
 
@@ -143,14 +130,13 @@ public class ShiroUtil {
             redisSessionDAO.delete(session);
         } else {
             //重新查出当前用户角色
-            List<Integer> roleIdByUserIdAndCompanyId = roleService.getRoleIdByUserId(userId);
-            sessionUser.setRoleId(roleIdByUserIdAndCompanyId.get(0));
-
-            user.setRoleId(null);
-            //重写入sessionDAO
-            redisSessionDAO.update(session);
+//            List<Integer> roleId = roleService.getRoleIdByUserId(userName);
+//            sessionUser.setRoleId(roleId.get(0));
+//
+//            user.setRoleId(null);
+//            //重写入sessionDAO
+//            redisSessionDAO.update(session);
         }
-
 
         DefaultWebSecurityManager securityManager;
 
@@ -184,13 +170,11 @@ public class ShiroUtil {
     /**
      * 批量删除userIds
      *
-     * @param userIds
-     * @param companyId
      * @param isRemoveSession
      */
-    public static void kickOutUserList(List<Integer> userIds, Integer companyId, boolean isRemoveSession) {
-        for (Integer userId : userIds) {
-            kickOutUser(userId, companyId, isRemoveSession);
+    public static void kickOutUserList(List<String> mobiles, boolean isRemoveSession) {
+        for (String mobile : mobiles) {
+            kickOutUser(mobile, isRemoveSession);
         }
     }
 }

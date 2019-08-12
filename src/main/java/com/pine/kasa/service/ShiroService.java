@@ -13,7 +13,7 @@ public interface ShiroService {
 
     Set<String> findPermissionUrlByRoleId(List<Integer> roleId);
 
-    void updatePermission(Integer roleId, Integer companyId);
+    void updatePermission(Integer roleId, String companyId);
 
     ServiceResult getUserResource(String userName);
 }

@@ -49,7 +49,7 @@ public class ShiroServiceImpl implements ShiroService {
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/user/**", "anon");
         filterChainDefinitionMap.put("/role/insertBatch", "anon");
-//        filterChainDefinitionMap.put("/test/**", "anon");
+        filterChainDefinitionMap.put("/sync/**", "anon");
         //这里要取出content-path
         for (ResourceVO resources : resourcesList) {
             if (StringUtil.isNotEmpty(resources.getValue())) {
@@ -84,10 +84,10 @@ public class ShiroServiceImpl implements ShiroService {
      * 在对角色进行增删改操作时，需要调用此方法进行动态刷新
      */
     @Override
-    public void updatePermission(Integer roleId, Integer companyId) {
+    public void updatePermission(Integer roleId, String mobile) {
         updatePermission();
         //根据角色id查用户名
-        ShiroUtil.kickOutUser(1, 1, false);
+        ShiroUtil.kickOutUser(mobile, false);
     }
 
     private void updatePermission() {

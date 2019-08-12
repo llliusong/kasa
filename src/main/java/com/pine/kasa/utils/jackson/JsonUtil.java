@@ -283,7 +283,7 @@ public class JsonUtil {
         List<User> stringList = new ArrayList<>();
         for (int a = 0; a < 10; a++) {
             User user = new User();
-            user.setId((long) a);
+            user.setId(a);
             user.setPassword("passwd" + a);
             user.setNickname("username" + a);
             user.setBirthday(new Date());

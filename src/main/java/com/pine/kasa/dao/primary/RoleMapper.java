@@ -22,5 +22,5 @@ public interface RoleMapper extends Mapper<Role> {
 
     Role getRoleById(Integer roleId);
 
-    List<Integer> getRoleIdByUserIdAndCompanyId(@Param("userId") Integer userId);
+    List<Integer> getRoleIdByUserId(@Param("userId") Integer userId);
 }

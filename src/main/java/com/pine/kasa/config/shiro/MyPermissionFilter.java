@@ -43,16 +43,6 @@ public class MyPermissionFilter extends AccessControlFilter {
         }
 
         Subject subject = getSubject(request, response);
-//        Session session = subject.getSession();
-
-//		if(sessionUser==null){
-//			todo 如果sessionUser为空这里通过cookie模拟登录
-//			logger.info("cookie 登入 CookieToken(httpServletRequest)" );
-//			CookieToken token = new CookieToken(httpServletRequest);
-//			if(token.getSessionUser() == null)
-//				return Boolean.FALSE;
-//			subject.login(token);
-//		}
 
         //验证用户是否有访问权限
         if (subject.isPermitted(url)) {

@@ -117,7 +117,7 @@ public class SessionManager {
     }
 
 
-    public static Long getUserId() {
+    public static Integer getUserId() {
         return getUser().getUserId();
     }
 
@@ -168,7 +168,7 @@ public class SessionManager {
             String[] arr = en_str.split(",", -1);
             if (arr.length >= 3) {
                 SessionUser sessionUser = new SessionUser();
-                sessionUser.setUserId(Long.valueOf(arr[0]));
+                sessionUser.setUserId(Integer.valueOf(arr[0]));
                 sessionUser.setMobile(String.valueOf(arr[1]));
                 sessionUser.setNickname(arr[2]);
                 sessionUser.setRoleId(1);

@@ -32,10 +32,6 @@ public class Resources {
     @Column(name = "name")
     private String name;
 
-    /*该url所属项目(0:web端，1h5端项目)*/
-    @Column(name = "project")
-    private Integer project = 0;
-
     /*创建时间*/
     @Column(name = "create_time")
     private Date createTime;
@@ -47,18 +43,6 @@ public class Resources {
     /*状态(0:删除，1:正常)*/
     @Column(name = "status")
     private Integer status = 1;
-
-    /**
-     * 菜单标识符
-     */
-    @Column(name = "identifier")
-    private String identifier;
-
-    /**
-     * 资源类型(0:url/1:menu)
-     */
-    @Column(name = "type")
-    private Integer type;
 
     /**
      * 资源类型(0:sort/1:sort)

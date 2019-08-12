@@ -143,7 +143,7 @@ public class ShiroUtil {
             redisSessionDAO.delete(session);
         } else {
             //重新查出当前用户角色
-            List<Integer> roleIdByUserIdAndCompanyId = roleService.getRoleIdByUserIdAndCompanyId(userId);
+            List<Integer> roleIdByUserIdAndCompanyId = roleService.getRoleIdByUserId(userId);
             sessionUser.setRoleId(roleIdByUserIdAndCompanyId.get(0));
 
             user.setRoleId(null);

@@ -49,7 +49,7 @@ public class ShiroServiceImpl implements ShiroService {
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/user/**", "anon");
         filterChainDefinitionMap.put("/role/insertBatch", "anon");
-        filterChainDefinitionMap.put("/test/**", "anon");
+//        filterChainDefinitionMap.put("/test/**", "anon");
         //这里要取出content-path
         for (ResourceVO resources : resourcesList) {
             if (StringUtil.isNotEmpty(resources.getValue())) {
@@ -63,7 +63,7 @@ public class ShiroServiceImpl implements ShiroService {
 
     @Override
     public Set<String> findPermissionUrlByUserId(Integer userId) {
-        List<Integer> roleIds = roleService.getRoleIdByUserIdAndCompanyId(userId);
+        List<Integer> roleIds = roleService.getRoleIdByUserId(userId);
 //        resourceMapper.findPermissionUrlByUserIdAndCompanyId(userId, companyId);
         return findPermissionUrlByRoleId(roleIds);
     }

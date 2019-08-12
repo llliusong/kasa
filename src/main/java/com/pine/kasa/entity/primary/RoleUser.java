@@ -32,10 +32,6 @@ public class RoleUser {
     @Column(name = "parent")
     private Integer parent;
 
-    /*corp_id(corp表主键,不是corp表corp_id)*/
-    @Column(name = "company_id")
-    private Integer companyId;
-
     /*创建时间*/
     @Column(name = "create_time")
     private Date createTime;
@@ -47,16 +43,4 @@ public class RoleUser {
     /*状态(0:删除，1:正常)*/
     @Column(name = "status")
     private Integer status = 1;
-
-    /**
-     * 授权人id
-     */
-    @Column(name = "authorizer_id")
-    private Integer authorizerId;
-
-    /**
-     *  授权人姓名
-     */
-    @Column(name="authorizer")
-    private String authorizer;
 }

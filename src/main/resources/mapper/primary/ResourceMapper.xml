@@ -6,14 +6,14 @@
 		<result column="value" jdbcType="VARCHAR" property="value" />
 		<result column="parent_id" jdbcType="INTEGER" property="parentId" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="project" jdbcType="INTEGER" property="project" />
+		<result column="sort" jdbcType="INTEGER" property="sort" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
 		<result column="status" jdbcType="INTEGER" property="status" />
 	</resultMap>
 
 	<sql id="Base_Column_List" >
-		id,`value`,parent_id,`name`,project,create_time,update_time,status
+		id,`value`,parent_id,`name`,`sort`,create_time,update_time,status
 	</sql>
 
 	<sql id="base_resourcevo_list" >
@@ -25,7 +25,7 @@
 	<!--获取不拦截的url-->
 	<select id="getNoLoginUrls" resultType="java.lang.String">
 		SELECT pr.value FROM cc_resource pr RIGHT JOIN cc_role_resource prr ON pr.id=prr.resource_id
-		WHERE prr.role_id = 4 AND prr.status=1 AND pr.status=1 AND pr.project = 0 AND pr.type = 0
+		WHERE prr.role_id = 4 AND prr.status=1 AND pr.status=1
 	</select>
 
 	<select id="findShiroResourcesByRoleIds" resultMap="BaseResultMap">

@@ -33,7 +33,7 @@ public class ShiroConfiguration {
     @Autowired(required = false)
     private ShiroService shiroService;
 
-    private static final String USER_ID = "username";
+    private static final String USER_ID = "userId";
 
     public static final String CUSTOM_NAME = "custom_name";
 

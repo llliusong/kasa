@@ -19,7 +19,7 @@ public class SessionUser implements Serializable {
 
     public SessionUser(HttpSession session, Cookie[] cookies) {
         this.session = session;
-        //this.cookies = new Cookie[]{new Cookie("lol","cVfTS3YytQtk4%2BbXZ2DwM56MOorw6VRNGyENjLYXM0N%2BYMVxVBreY4Wv59%2FQ%0A4qnh%0A")};//todo 本机测试时使用本行
+        //this.cookies = new Cookie[]{new Cookie("lol","cVfTS3YytQtk4%2BbXZ2DwM56MOorw6VRNGyENjLYXM0N%2BYMVxVBreY4Wv59%2FQ%0A4qnh%0A")};
         this.cookies = cookies;
         parseCookie();
     }
@@ -45,7 +45,7 @@ public class SessionUser implements Serializable {
             logger.warn("sessionUser split size error:" + en_str);
             return false;
         }
-        setUserId(Long.valueOf(arr[0]));
+        setUserId(Integer.valueOf(arr[0]));
         setMobile(String.valueOf(arr[1]));
         setNickname(arr[2]);
         setRoleId(Integer.valueOf(arr[3]));
@@ -77,7 +77,7 @@ public class SessionUser implements Serializable {
     //    -------------------- setter and getter methods ---------------------
 
 
-    private Long userId;
+    private Integer userId;
 
     private String mobile;
 

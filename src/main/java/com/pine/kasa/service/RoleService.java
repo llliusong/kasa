@@ -7,12 +7,5 @@ import java.util.List;
  */
 public interface RoleService {
 
-    List<Integer> getRoleIdByUserIdAndCompanyId(Integer userId);
-
-
-    /**
-     * 判断是否为社区的管理员，假如是主和子管理员返回1 其他的返回0
-     */
-    Integer judgeManager(List<Integer> roleIds);
-
+    List<Integer> getRoleIdByUserId(Integer userId);
 }

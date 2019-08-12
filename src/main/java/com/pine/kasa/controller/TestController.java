@@ -1,6 +1,8 @@
 package com.pine.kasa.controller;
 
 import com.pine.kasa.common.ServiceResult;
+import com.pine.kasa.common.SessionManager;
+import com.pine.kasa.common.SessionUser;
 import com.pine.kasa.service.TestService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +41,19 @@ public class TestController extends BaseController {
     @GetMapping(value = "/one", name = "one")
     public ServiceResult one(Integer id) {
         return ServiceResult.success(testService.getTest(id));
+    }
+
+    /**
+     * pc端获取未处理列表
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping(value = "/test", name = "one")
+    public ServiceResult test(Integer id) {
+        SessionUser user = SessionManager.getUser();
+
+        return ServiceResult.success(user);
     }
 
 }

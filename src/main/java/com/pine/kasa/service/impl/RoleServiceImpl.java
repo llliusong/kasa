@@ -26,30 +26,16 @@ public class RoleServiceImpl implements RoleService {
     private RoleUserMapper roleUserMapper;
 
     @Override
-    public List<Integer> getRoleIdByUserIdAndCompanyId(Integer userId) {
-        List<Integer> roleIdByUserIdAndCompanyId = roleMapper.getRoleIdByUserIdAndCompanyId(userId);
-        if (CollectionUtils.isEmpty(roleIdByUserIdAndCompanyId)) {
-            roleIdByUserIdAndCompanyId = Lists.newArrayList();
-            roleIdByUserIdAndCompanyId.add(RolePrimaryKeyEnum.NORMAL_USER.getPrimaryKey());
+    public List<Integer> getRoleIdByUserId(Integer userId) {
+        List<Integer> roleIds = roleMapper.getRoleIdByUserId(userId);
+        if (CollectionUtils.isEmpty(roleIds)) {
+            roleIds = Lists.newArrayList();
+            roleIds.add(RolePrimaryKeyEnum.NORMAL_USER.getPrimaryKey());
             RoleUser roleUser = new RoleUser();
             roleUser.setUserId(userId);
             roleUser.setRoleId(RolePrimaryKeyEnum.NORMAL_USER.getPrimaryKey());
             roleUserMapper.insertSelective(roleUser);
         }
-        return roleIdByUserIdAndCompanyId;
+        return roleIds;
     }
-
-    @Override
-    public Integer judgeManager(List<Integer> roleIds) {
-        if (CollectionUtils.isEmpty(roleIds)) {
-            return 0;
-        }
-        if (RolePrimaryKeyEnum.whetherAdmin(roleIds)) {
-            return 1;
-        }
-        return 0;
-    }
-
-
-
 }

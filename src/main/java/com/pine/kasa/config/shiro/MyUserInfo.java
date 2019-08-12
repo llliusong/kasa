@@ -10,9 +10,10 @@ import java.io.Serializable;
  */
 @Data
 public class MyUserInfo implements Serializable {
-    private Long userId;
+    private Integer userId;
 
     private String mobile;//手机号
+    private String username;//手机号
 
     private Integer roleId;
 }

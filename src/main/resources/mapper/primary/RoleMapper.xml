@@ -30,9 +30,9 @@
         WHERE id = #{roleId} AND status = 1
     </select>
 
-    <select id="getRoleIdByUserIdAndCompanyId" resultType="Integer">
+    <select id="getRoleIdByUserId" resultType="Integer">
         SELECT role_id FROM cc_role_user
-        WHERE user_id = #{userId} AND company_id = #{companyId} AND status = 1
+        WHERE user_id = #{userId} AND status = 1
     </select>
 
 </mapper>

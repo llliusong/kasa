@@ -61,7 +61,7 @@ public class MyShiroRealm extends AuthorizingRealm {
          }*/
 
         // 从新根据当前登录用户获取角色然后获取用户资源
-        Set<String> permissionList = shiroService.findPermissionUrlByUserId(userInfo.getRoleId());
+        Set<String> permissionList = shiroService.findPermissionUrlByUserId(userInfo.getUserId());
 
 //        Role role = roleMapper.getRoleById(roleId);
 //        info.addRole(role.getName());
@@ -98,12 +98,14 @@ public class MyShiroRealm extends AuthorizingRealm {
             if (null != username) {
                 //根据用户名查询密码，由安全管理器负责对比查询出的数据库中的密码和页面输入的密码是否一致
                 User user = userMapper.getUserByMobile(username);
+                userInfo.setUserId(user.getId());
 
                 if (user != null) {
                     userInfo.setUserId(user.getId());
+                    userInfo.setUsername(user.getNickname());
 
                     //最后的比对需要交给安全管理器,三个参数进行初步的简单认证信息对象的包装,由安全管理器进行包装运行
-                    return new SimpleAuthenticationInfo(user.getMobile(), user.getPassword(), getName());
+                    return new SimpleAuthenticationInfo(userInfo, user.getPassword(), getName());
                 } else {
                     throw new UnknownAccountException(username + "账号不存在");
                 }

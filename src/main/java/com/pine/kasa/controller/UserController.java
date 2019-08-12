@@ -2,6 +2,8 @@ package com.pine.kasa.controller;
 
 import com.pine.kasa.common.Constant;
 import com.pine.kasa.common.ServiceResult;
+import com.pine.kasa.common.SessionUser;
+import com.pine.kasa.entity.primary.User;
 import com.pine.kasa.pojo.dto.UserDTO;
 import com.pine.kasa.service.UserService;
 import com.pine.kasa.utils.AssertUtils;
@@ -68,12 +70,18 @@ public class UserController extends BaseController {
         paramVaild(mobile, password);
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(mobile, password);
-
+        User user = userService.getUser(mobile);
+        AssertUtils.notNull(user, "帐号不存在");
         try {
             subject.login(token);
+            token.setRememberMe(true);
             request.setAttribute("msg", "登录成功!");
+            SessionUser sessionUser = new SessionUser();
+            sessionUser.setUserId(user.getId());
+            sessionUser.setNickname(user.getNickname());
+            sessionUser.setMobile(user.getMobile());
 
-            subject.getSession().setAttribute(Constant.SESSION_USER, "ss");
+            subject.getSession().setAttribute(Constant.SESSION_USER, sessionUser);
             return ServiceResult.success("登录成功!");
 
         } catch (IncorrectCredentialsException e) {

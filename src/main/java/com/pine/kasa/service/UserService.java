@@ -1,5 +1,6 @@
 package com.pine.kasa.service;
 
+import com.pine.kasa.entity.primary.User;
 import com.pine.kasa.pojo.dto.UserDTO;
 
 /**
@@ -8,6 +9,8 @@ import com.pine.kasa.pojo.dto.UserDTO;
  * @description: 用户服务层
  */
 public interface UserService {
+
+    User getUser(String mobile);
 
     void create(UserDTO dto);
 }

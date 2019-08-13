@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by pine on 2018-03-22 18:04:48
  */
-public interface ResourcesService {
+public interface ResourcesService extends BaseService<Resources>{
 
     /**
      * 获取不需要登录的url

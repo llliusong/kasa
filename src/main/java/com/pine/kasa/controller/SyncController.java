@@ -7,6 +7,7 @@ import com.pine.kasa.config.redis.RedisKeyStrategy;
 import com.pine.kasa.config.shiro.ShiroUtil;
 import com.pine.kasa.dao.primary.UserMapper;
 import com.pine.kasa.entity.primary.User;
+import com.pine.kasa.filter.LoadResourceHandler;
 import com.pine.kasa.service.RedisService;
 import com.pine.kasa.service.ShiroService;
 import com.pine.kasa.service.TestService;
@@ -14,10 +15,7 @@ import com.pine.kasa.service.UserService;
 import com.pine.kasa.utils.AssertUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -44,6 +42,9 @@ public class SyncController extends BaseController {
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private LoadResourceHandler loadResourceHandler;
 
     /**
      * all
@@ -153,4 +154,12 @@ public class SyncController extends BaseController {
 
         return ServiceResult.success(sessionUser);
     }
+
+    @RequestMapping(value = "/loadResource", name = "加载资源", method = RequestMethod.GET)
+    public ServiceResult loadResource() {
+
+        loadResourceHandler.getResourceMap();
+        return ServiceResult.success("操作成功!");
+    }
+
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by pine on 2018-03-22 18:04:48
  */
 @Service
-public class ResourcesServiceImpl implements ResourcesService {
+public class ResourcesServiceImpl extends  BaseServiceImpl<Resources> implements ResourcesService{
 
 	@Resource
 	private ResourceMapper resourceMapper;

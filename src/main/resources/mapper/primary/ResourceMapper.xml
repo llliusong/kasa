@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pine.kasa.dao.primary.ResourceMapper">
-	<resultMap id="BaseResultMap" type="com.pine.kasa.entity.primary.Resources">
+	<resultMap id="BaseResultMap" type="com.pine.kasa.model.entity.primary.Resources">
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="value" jdbcType="VARCHAR" property="value" />
 		<result column="parent_id" jdbcType="INTEGER" property="parentId" />
@@ -49,13 +49,13 @@
 		  WHERE status = 1
 	</select>
 
-	<select id="findAllAnonResource" resultType="com.pine.kasa.pojo.vo.permission.ResourceVO">
+	<select id="findAllAnonResource" resultType="com.pine.kasa.model.vo.permission.ResourceVO">
 		SELECT <include refid="base_resourcevo_list"/>
 		FROM cc_resource cr LEFT JOIN cc_role_resource crr on cr.id = crr.resource_id
 		WHERE crr.role_id = 1
 	</select>
 
-	<select id="findResourceByRoleId" resultType="com.pine.kasa.pojo.vo.permission.ResourceVO">
+	<select id="findResourceByRoleId" resultType="com.pine.kasa.model.vo.permission.ResourceVO">
 		SELECT  <include refid="Base_Column_List"/>
 		FROM cc_resource
 		WHERE status = 1

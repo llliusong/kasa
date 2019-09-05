@@ -1,7 +1,7 @@
 package com.pine.kasa.service;
 
-import com.pine.kasa.entity.primary.User;
-import com.pine.kasa.pojo.dto.UserDTO;
+import com.pine.kasa.model.entity.primary.User;
+import com.pine.kasa.model.dto.UserDTO;
 
 /**
  * @author: pine

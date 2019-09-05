@@ -1,4 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /kasa
+  tomcat:
+    uri-encoding: utf-8
+  # 关闭springboot 默认异常处理
+  error:
+    whitelabel:
+      enabled: false
 spring:
+  #出现错误时, 直接抛出异常(便于异常统一处理，否则捕获不到404)
+  mvc:
+    throw-exception-if-no-handler-found: true
+    #不要为我们工程中的资源文件建立映射
+  resources:
+    add-mappings: false
   freemarker:
     cache: false
     request-context-attribute: request
@@ -70,7 +86,7 @@ spring:
 # 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
-  type-aliases-package: com.pine.kasa.entity  # 注意：对应实体类的路径
+  type-aliases-package: com.pine.kasa.model.entity  # 注意：对应实体类的路径
 
 # 通用mapper
 mapper:
@@ -88,13 +104,6 @@ pagehelper:
   params: count=countSql
   returnPageInfo: check
 
-server:
-  port: 8080
-  servlet:
-    context-path: /kasa
-  tomcat:
-    uri-encoding: utf-8
-
 ---
 
 picture:
@@ -107,7 +116,10 @@ environment:
 yuming:
   url: https://pretest.forwe.store
 
-
+# 分布式配置
+distributed:
+  config:
+    file: /Users/lius/Documents/worker.cfg
 
 web-config: #自定义的属性和值
   root-upload-path: community-test
@@ -115,8 +127,8 @@ web-config: #自定义的属性和值
   domain-name: https://pretest.forwe.store
   suite-id: 4392002
   appid: 10469
-  webhook: https://oapi.dingtalk.com/robot/send?access_token=1367d77354cab77afcfcfc9ddc2a79f448c8a94bad022389e3fcfe7e02080b01
-  working-group-webhook: https://oapi.dingtalk.com/robot/send?access_token=1367d77354cab77afcfcfc9ddc2a79f448c8a94bad022389e3fcfe7e02080b01
+  webhook: 
+  working-group-webhook: 
   listprop1:
     - name: abc
       value: abcValue

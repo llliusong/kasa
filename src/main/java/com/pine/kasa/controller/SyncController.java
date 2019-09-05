@@ -1,23 +1,26 @@
 package com.pine.kasa.controller;
 
+import com.google.common.collect.Lists;
 import com.pine.kasa.common.ServiceResult;
 import com.pine.kasa.common.SessionManager;
 import com.pine.kasa.common.SessionUser;
 import com.pine.kasa.config.redis.RedisKeyStrategy;
 import com.pine.kasa.config.shiro.ShiroUtil;
 import com.pine.kasa.dao.primary.UserMapper;
-import com.pine.kasa.entity.primary.User;
+import com.pine.kasa.model.entity.primary.User;
 import com.pine.kasa.filter.LoadResourceHandler;
 import com.pine.kasa.service.RedisService;
 import com.pine.kasa.service.ShiroService;
 import com.pine.kasa.service.TestService;
 import com.pine.kasa.service.UserService;
 import com.pine.kasa.utils.AssertUtils;
+import com.pine.kasa.utils.keygen.DefaultKeyGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @date: 2019-07-02 17:04.
@@ -26,7 +29,7 @@ import javax.annotation.Resource;
 @Slf4j
 @RestController
 @RequestMapping(value = "/sync", name = "同步模块")
-public class SyncController extends BaseController {
+public class SyncController {
 
     @Resource
     private TestService testService;
@@ -160,6 +163,16 @@ public class SyncController extends BaseController {
 
         loadResourceHandler.getResourceMap();
         return ServiceResult.success("操作成功!");
+    }
+
+    @RequestMapping(value = "/findKey", name = "获取key", method = RequestMethod.GET)
+    public ServiceResult findKey() {
+        DefaultKeyGenerator defaultKeyGenerator = new DefaultKeyGenerator();
+        List<Long> list = Lists.newArrayList();
+        for (int tj = 0; tj < 100 ;tj++){
+            list.add(defaultKeyGenerator.generateKey().longValue());
+        }
+        return ServiceResult.success(list);
     }
 
 }

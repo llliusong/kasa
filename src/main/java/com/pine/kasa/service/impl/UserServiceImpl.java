@@ -1,9 +1,9 @@
 package com.pine.kasa.service.impl;
 
 import com.pine.kasa.dao.primary.UserMapper;
-import com.pine.kasa.entity.primary.RoleUser;
-import com.pine.kasa.entity.primary.User;
-import com.pine.kasa.pojo.dto.UserDTO;
+import com.pine.kasa.model.entity.primary.RoleUser;
+import com.pine.kasa.model.entity.primary.User;
+import com.pine.kasa.model.dto.UserDTO;
 import com.pine.kasa.service.UserService;
 import com.pine.kasa.utils.AssertUtils;
 import com.pine.kasa.utils.CyptoUtils;

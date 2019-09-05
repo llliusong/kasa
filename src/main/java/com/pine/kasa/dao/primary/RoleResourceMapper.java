@@ -1,6 +1,6 @@
 package com.pine.kasa.dao.primary;
 
-import com.pine.kasa.entity.primary.RoleResource;
+import com.pine.kasa.model.entity.primary.RoleResource;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 

@@ -1,6 +1,6 @@
 package com.pine.kasa.service;
 
-import com.pine.kasa.entity.primary.Resources;
+import com.pine.kasa.model.entity.primary.Resources;
 
 import java.util.List;
 

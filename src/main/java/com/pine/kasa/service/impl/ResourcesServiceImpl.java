@@ -1,9 +1,10 @@
 package com.pine.kasa.service.impl;
 
 import com.pine.kasa.dao.primary.ResourceMapper;
-import com.pine.kasa.entity.primary.Resources;
+import com.pine.kasa.model.entity.primary.Resources;
 import com.pine.kasa.service.ResourcesService;
 import com.pine.kasa.utils.AssertUtils;
+import com.pine.kasa.utils.keygen.DefaultKeyGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -55,4 +56,13 @@ public class ResourcesServiceImpl extends  BaseServiceImpl<Resources> implements
 //
 //		return menuList;
 //	}
+	public static void main(String[] args) {
+		long stat = System.currentTimeMillis();
+		io.shardingsphere.core.keygen.DefaultKeyGenerator defaultKeyGenerator = new io.shardingsphere.core.keygen.DefaultKeyGenerator();
+		DefaultKeyGenerator.setWorkerId(1023);
+//		for (int i=0;i<100;i++){
+			System.out.println(defaultKeyGenerator.generateKey());
+//		}
+		System.out.println(" 耗时: " + (System.currentTimeMillis() - stat) + "ms");
+	}
 }

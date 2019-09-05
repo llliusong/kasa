@@ -3,11 +3,11 @@ package com.pine.kasa.controller;
 import com.pine.kasa.common.Constant;
 import com.pine.kasa.common.ServiceResult;
 import com.pine.kasa.common.SessionUser;
-import com.pine.kasa.entity.primary.User;
-import com.pine.kasa.pojo.dto.UserDTO;
+import com.pine.kasa.model.entity.primary.User;
+import com.pine.kasa.model.dto.UserDTO;
 import com.pine.kasa.service.UserService;
 import com.pine.kasa.utils.AssertUtils;
-import com.pine.kasa.utils.RegexValidateUtils;
+import com.pine.kasa.utils.ValidationUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -27,11 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RestController
 @RequestMapping(value = "/user", name = "用户")
-public class UserController extends BaseController {
+public class UserController {
 
     @Resource
     private UserService userService;
-
 
     /**
      * 用户注册
@@ -42,13 +41,7 @@ public class UserController extends BaseController {
     @PostMapping(value = "/register", name = "用户注册")
     public ServiceResult register(UserDTO userDTO) {
         AssertUtils.notNull(userDTO, "注册参数不能为空!");
-        AssertUtils.notNull(userDTO.getMobile(), "手机号不能为空!");
-        AssertUtils.notNull(userDTO.getPassword(), "密码不能为空!");
-        AssertUtils.isTrue(RegexValidateUtils.checkMobile(userDTO.getMobile()), "手机号码格式不正确!");
-
-        if (userDTO.getEmail() != null) {
-            AssertUtils.isTrue(RegexValidateUtils.checkEmail(userDTO.getEmail()));
-        }
+        ValidationUtils.validate(userDTO);
 
         userService.create(userDTO);
 
@@ -67,7 +60,9 @@ public class UserController extends BaseController {
      */
     @PostMapping(value = "/login", name = "用户登录")
     public ServiceResult login(String mobile, String password, HttpServletRequest request) {
-        paramVaild(mobile, password);
+        AssertUtils.notNull(mobile, "用户名不能为空!");
+        AssertUtils.notNull(password, "密码不能为空!");
+
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(mobile, password);
         User user = userService.getUser(mobile);
@@ -115,8 +110,4 @@ public class UserController extends BaseController {
         }
     }
 
-    private static void paramVaild(String userName, String password) {
-        AssertUtils.notNull(userName, "用户名不能为空!");
-        AssertUtils.notNull(password, "密码不能为空!");
-    }
 }

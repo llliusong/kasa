@@ -1,4 +1,4 @@
-package com.pine.kasa.entity.primary;
+package com.pine.kasa.model.entity.primary;
 
 import lombok.Data;
 

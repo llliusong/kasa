@@ -1,7 +1,7 @@
 package com.pine.kasa.config.shiro;
 
 import com.pine.kasa.dao.primary.UserMapper;
-import com.pine.kasa.entity.primary.User;
+import com.pine.kasa.model.entity.primary.User;
 import com.pine.kasa.service.RoleService;
 import com.pine.kasa.service.ShiroService;
 import org.apache.shiro.SecurityUtils;

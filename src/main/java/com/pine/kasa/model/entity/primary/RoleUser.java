@@ -1,19 +1,18 @@
-package com.pine.kasa.entity.primary;
+package com.pine.kasa.model.entity.primary;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Created by pine on 2018-03-22 18:04:48
  */
-@Data
-@Table(name = "cc_resource")
+@Table(name = "cc_role_user")
 @JsonIgnoreProperties(value = {"handler"})
-public class Resources {
+@Data
+public class RoleUser {
 
     /*id*/
     @Id
@@ -21,16 +20,17 @@ public class Resources {
     @Column(name = "id")
     private Integer id;
 
-    /*value(对应的url)*/
-    @Column(name = "value")
-    private String value;
+    /*user_id(用户id)*/
+    @Column(name = "user_id")
+    private Integer userId;
 
-    @Column(name = "parent_id")
-    private Integer parentId;
+    /*role_id(角色id)*/
+    @Column(name = "role_id")
+    private Integer roleId;
 
-    /*菜单名称*/
-    @Column(name = "name")
-    private String name;
+    /*父亲id*/
+    @Column(name = "parent")
+    private Integer parent;
 
     /*创建时间*/
     @Column(name = "create_time")
@@ -43,19 +43,4 @@ public class Resources {
     /*状态(0:删除，1:正常)*/
     @Column(name = "status")
     private Integer status = 1;
-
-    /**
-     * 资源类型(0:sort/1:sort)
-     */
-    @Column(name = "sort")
-    private Integer sort;
-
-    /**
-     * ======
-     */
-    @Transient
-    private Set<Role> roleSet;
-
-    @Transient
-    private Set<Resources> childSet;
 }

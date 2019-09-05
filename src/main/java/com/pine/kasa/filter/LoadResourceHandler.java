@@ -1,6 +1,6 @@
 package com.pine.kasa.filter;
 
-import com.pine.kasa.entity.primary.Resources;
+import com.pine.kasa.model.entity.primary.Resources;
 import com.pine.kasa.service.ResourcesService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -65,9 +65,7 @@ public class LoadResourceHandler {
 
         List<Map.Entry<String, String>> myListz = new MyResourceGenTools().getAllContrUrlResource(controlPath, nameValueMap).sortByTreeMapValue(nameValueMap);//modify by pine on 2016.12.21
 
-//        List<Map.Entry<String, String>> myListz = CommonUtils.sortByTreeMapValue(nameValueMap);//modify by pine on 2016.12.21
-
-        //TODO resource 插入数据库
+        // resource 插入数据库
         if (resList == null || resList.isEmpty()) {
             resList = new ArrayList<>();
 
@@ -96,14 +94,12 @@ public class LoadResourceHandler {
 
             logger.debug("pine :初始化所有的权限资源");
         } else {
-            //TODO 更新数据库
             /**
              * 三种判断 name value相同则下一个元素 name 或者 value 只有其中之一不同则更新 两个都不同则当新增的方法类型去处理
              */
             List<String> paramLis = new ArrayList<>();
             List<Map.Entry<String, String>> unhandlerLis = new ArrayList<>();
 
-            //TODO
             resourceMapEntryHandler(myListz, resList, paramLis, unhandlerLis, (byte) 0);//处理第一次初始化的资源用 更新或者记录后加的新资源 或是真的新资源 标记 处理
             resourceMapEntryHandler(unhandlerLis, resList, paramLis, unhandlerLis, (byte) 1);//处理上次记录下来的 标记的 新资源或者是 后续追加的新资源呢 处理
 
@@ -191,8 +187,6 @@ public class LoadResourceHandler {
                 String k = e.getKey();
                 String v = e.getValue();
 
-
-                //TODO 删除老的数据值
                 Resources rtrs = new Resources();
                 rtrs.setName(k);
                 rtrs.setValue(PROJECT_NAME + v);
@@ -271,7 +265,7 @@ public class LoadResourceHandler {
 
     public Collection<String> makeBareRole() {
         Collection<String> atts = new ArrayList<>(1);
-        atts.add(SUPER_ADMIN_ROLE_VALUE);///TODO
+        atts.add(SUPER_ADMIN_ROLE_VALUE);
         return atts;
     }
 
@@ -283,6 +277,15 @@ public class LoadResourceHandler {
 
     public class MyResourceGenTools {
 
+        /**
+         * 获取所有的资源
+         *
+         * @param path      controller所在路径
+         * @param paramMaps <name,url> map
+         * @return com.pine.kasa.filter.LoadResourceHandler.MyResourceGenTools
+         * @author: pine
+         * @date: 2019-09-04 17:11
+         */
         public MyResourceGenTools getAllContrUrlResource(String path, Map<String, String> paramMaps) throws ClassNotFoundException {
 
             if (StringUtils.isBlank(path)) return null;
@@ -292,7 +295,7 @@ public class LoadResourceHandler {
             String p = StringUtils.substringAfter(path, "classes/");//取得指定字符串后的字符串
 
             for (String contrName : getAllFileName(path, null)) {
-                getContrlUrlResource(p.concat("/" + contrName), paramMaps);
+                getControllerUrlResource(p.concat("/" + contrName), paramMaps);
             }
 
             return this;
@@ -307,7 +310,7 @@ public class LoadResourceHandler {
          * @param paramMaps
          * @throws ClassNotFoundException
          */
-        public void getContrlUrlResource(String resourceName, Map<String, String> paramMaps) throws ClassNotFoundException {
+        public void getControllerUrlResource(String resourceName, Map<String, String> paramMaps) throws ClassNotFoundException {
             if (StringUtils.isBlank(resourceName)) return;
 
             for (String string : filterController) {
@@ -323,27 +326,19 @@ public class LoadResourceHandler {
 
             Class<?> c = Class.forName(resourceName);
 
+            // 获取顶部mapping
             RequestMapping[] k = c.getAnnotationsByType(RequestMapping.class);
 
-
-            String bigPath = "";
-            String bigPathName = "";
-
-            int i = 0, j = 0;
+            String outerPath = "";
+            String outerPathName = "";
 
             if (k != null && k.length != 0) {
-                for (; i < k.length; i++) {
-
-                    String[] l = k[i].value();
-                    bigPathName = k[i].name();
-
-                    if (l != null && l.length != 0) {
-                        for (; j < l.length; j++) {
-
-                            //String p = StringUtils.isBlank(k[i].name()) ? l[j].concat("/**") : k[i].name();
-
-                            //paramMaps.put(p, l[j].concat("/**"));
-                            bigPath = l[j];//TODO 取的最后一个前罪名
+                for (RequestMapping m : k) {
+                    String[] urls = m.value();
+                    outerPathName = m.name();
+                    if (urls.length > 0) {
+                        for (String url : urls) {
+                            outerPath = url;
                         }
                     }
                 }
@@ -352,58 +347,57 @@ public class LoadResourceHandler {
             //modify by pine on 2016.12.20
             //存入父级节点项
 
-            if (StringUtils.isBlank(bigPath))
+            if (StringUtils.isBlank(outerPath))
                 throw new RuntimeException(c.getName() + " 最上面那个@RequestMapping的value值未写!");
 
-            bigPathName = StringUtils.isBlank(bigPathName) ? bigPath : bigPathName;
+            outerPathName = StringUtils.isBlank(outerPathName) ? outerPath : outerPathName;
 
-            paramMaps.put(bigPathName, bigPath);
+            paramMaps.put(outerPathName, outerPath);
             //
 
             Method[] methods = c.getMethods();
 
             for (Method m : methods) {
-
-                if (!m.isAccessible()) m.setAccessible(true);
-
-                PostMapping[] s = m.getAnnotationsByType(PostMapping.class);
-                //  2018/9/11 controller 里方法必须加public，否则获取不到
-
-                i = 0;
-                j = 0;
-                if (s != null && s.length != 0) {
-                    for (; i < s.length; i++) {
-
-                        String[] l = s[i].value();
-                        if (l != null && l.length != 0) {
-                            for (; j < l.length; j++) {
-
-                                String p = StringUtils.isBlank(s[i].name()) ? bigPath.concat(l[j]) : s[i].name();
-
-                                paramMaps.put(p, bigPath.concat(l[j]));
-                            }
-                        }
-                    }
-                }
+                getMethodPathAndPathName(m, paramMaps, outerPath);
             }
         }
 
         /**
          * 获取方法的路径和名称
+         * 2018/9/11 controller 里方法必须加public，否则获取不到
          */
-        private void getMethodPathAndPathName( Method m){
+        private void getMethodPathAndPathName(Method m, Map<String, String> paramMaps, String outerPath) {
+            if (!m.isAccessible()) m.setAccessible(true);
+
             // 目前只兼容这三个
-            if (m.isAnnotationPresent(RequestMapping.class)){
-                RequestMapping[] s = m.getAnnotationsByType(RequestMapping.class);
+            if (m.isAnnotationPresent(RequestMapping.class)) {
+                RequestMapping[] requestMappings = m.getAnnotationsByType(RequestMapping.class);
+                for (RequestMapping request : requestMappings) {
+                    joinPath(paramMaps, request.value(), request.name(), outerPath);
+                }
 
-            }else if (m.isAnnotationPresent(PostMapping.class)){
-                PostMapping[] s = m.getAnnotationsByType(PostMapping.class);
+            } else if (m.isAnnotationPresent(PostMapping.class)) {
+                PostMapping[] postMappings = m.getAnnotationsByType(PostMapping.class);
+                for (PostMapping post : postMappings) {
+                    joinPath(paramMaps, post.value(), post.name(), outerPath);
+                }
 
-            }else if (m.isAnnotationPresent(GetMapping.class)){
-                GetMapping[] s = m.getAnnotationsByType(GetMapping.class);
+            } else if (m.isAnnotationPresent(GetMapping.class)) {
+                GetMapping[] getMappings = m.getAnnotationsByType(GetMapping.class);
+                for (GetMapping get : getMappings) {
+                    joinPath(paramMaps, get.value(), get.name(), outerPath);
+                }
             }
         }
 
+        private void joinPath(Map<String, String> paramMaps, String[] url, String name, String outerPath) {
+            if (url.length > 0) {
+                for (String u : url) {
+                    String p = StringUtils.isBlank(name) ? outerPath.concat(u) : name;
+                    paramMaps.put(p, outerPath.concat(u));
+                }
+            }
+        }
 
 
         /**

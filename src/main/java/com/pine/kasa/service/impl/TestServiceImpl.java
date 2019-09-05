@@ -1,7 +1,7 @@
 package com.pine.kasa.service.impl;
 
 import com.pine.kasa.dao.primary.TestMapper;
-import com.pine.kasa.entity.primary.Test;
+import com.pine.kasa.model.entity.primary.Test;
 import com.pine.kasa.service.TestService;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.pine.kasa.dao.ding;
 
-import com.pine.kasa.entity.primary.Test;
+import com.pine.kasa.model.entity.primary.Test;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

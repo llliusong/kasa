@@ -1,4 +1,4 @@
-package com.pine.kasa.pojo.vo.permission;
+package com.pine.kasa.model.vo.permission;
 
 import lombok.Data;
 

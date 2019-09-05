@@ -3,7 +3,7 @@ package com.pine.kasa.service.impl;
 
 import com.pine.kasa.dao.primary.RoleMapper;
 import com.pine.kasa.dao.primary.RoleUserMapper;
-import com.pine.kasa.entity.primary.Role;
+import com.pine.kasa.model.entity.primary.Role;
 import com.pine.kasa.service.RoleUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

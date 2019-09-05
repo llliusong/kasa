@@ -1,4 +1,4 @@
-package com.pine.kasa.entity.primary;
+package com.pine.kasa.model.entity.primary;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -9,10 +9,10 @@ import java.util.Date;
 /**
  * Created by pine on 2018-03-22 18:04:48
  */
-@Table(name = "cc_role_user")
+@Table(name = "cc_role_resource")
 @JsonIgnoreProperties(value = {"handler"})
 @Data
-public class RoleUser {
+public class RoleResource {
 
     /*id*/
     @Id
@@ -20,17 +20,13 @@ public class RoleUser {
     @Column(name = "id")
     private Integer id;
 
-    /*user_id(用户id)*/
-    @Column(name = "user_id")
-    private Integer userId;
-
     /*role_id(角色id)*/
     @Column(name = "role_id")
     private Integer roleId;
 
-    /*父亲id*/
-    @Column(name = "parent")
-    private Integer parent;
+    /*esource_id(资源id)*/
+    @Column(name = "resource_id")
+    private Integer resourceId;
 
     /*创建时间*/
     @Column(name = "create_time")

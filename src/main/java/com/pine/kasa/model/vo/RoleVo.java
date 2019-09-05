@@ -1,4 +1,4 @@
-package com.pine.kasa.pojo.vo;
+package com.pine.kasa.model.vo;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package com.pine.kasa.dao.primary;
 
-import com.pine.kasa.entity.primary.Resources;
-import com.pine.kasa.pojo.vo.permission.ResourceVO;
+import com.pine.kasa.model.entity.primary.Resources;
+import com.pine.kasa.model.vo.permission.ResourceVO;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 

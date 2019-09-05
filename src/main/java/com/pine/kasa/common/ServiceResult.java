@@ -28,7 +28,7 @@ public class ServiceResult<T> implements Serializable {
         item.success = true;
         item.result = result;
         item.code = ResultCodeEnum.SUCCESS.getCode();
-        item.message = ResultCodeEnum.SUCCESS.getDesc();
+        item.message = ResultCodeEnum.SUCCESS.getMessage();
         return item;
     }
 
@@ -41,7 +41,7 @@ public class ServiceResult<T> implements Serializable {
     }
 
     public static <T> ServiceResult<T> success(ResultCodeEnum codeEnum) {
-        return resultSuccess(codeEnum.getCode(), codeEnum.getDesc());
+        return resultSuccess(codeEnum.getCode(), codeEnum.getMessage());
     }
 
     public static <T> ServiceResult<T> resultSuccess(Integer code, String message) {
@@ -70,7 +70,7 @@ public class ServiceResult<T> implements Serializable {
     }
 
     public static <T> ServiceResult<T> failure(ResultCodeEnum errorCode) {
-        return result(errorCode.getCode(), errorCode.getDesc());
+        return result(errorCode.getCode(), errorCode.getMessage());
     }
 
     public static <T> ServiceResult<T> failure(String msg) {
@@ -78,7 +78,7 @@ public class ServiceResult<T> implements Serializable {
     }
 
     public static <T> ServiceResult<T> systemError() {
-        return result(ResultCodeEnum.SYSTEM_ERROR.getCode(), ResultCodeEnum.SYSTEM_ERROR.getDesc());
+        return result(ResultCodeEnum.SYSTEM_ERROR.getCode(), ResultCodeEnum.SYSTEM_ERROR.getMessage());
     }
 
     public boolean hasResult() {

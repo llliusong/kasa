@@ -1,6 +1,6 @@
 package com.pine.kasa.service;
 
-import com.pine.kasa.entity.primary.Test;
+import com.pine.kasa.model.entity.primary.Test;
 
 import java.util.List;
 

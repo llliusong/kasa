@@ -3,7 +3,7 @@ package com.pine.kasa.service.impl;
 import com.google.common.collect.Lists;
 import com.pine.kasa.dao.primary.RoleMapper;
 import com.pine.kasa.dao.primary.RoleUserMapper;
-import com.pine.kasa.entity.primary.RoleUser;
+import com.pine.kasa.model.entity.primary.RoleUser;
 import com.pine.kasa.enums.RolePrimaryKeyEnum;
 import com.pine.kasa.service.RoleService;
 import org.springframework.stereotype.Service;

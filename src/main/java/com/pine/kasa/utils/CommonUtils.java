@@ -107,7 +107,7 @@ public class CommonUtils {
      * @param para
      * @return
      * @descript
-     * @author zoomy
+     * @author pine
      * @date 2015年3月29日
      * @version 1.0
      */
@@ -144,7 +144,7 @@ public class CommonUtils {
      * @param content
      * @return
      * @descript
-     * @author LJN
+     * @author pine
      * @date 2015年4月27日
      * @version 1.0
      */
@@ -169,7 +169,7 @@ public class CommonUtils {
      * @param content
      * @return
      * @descript
-     * @author LJN
+     * @author pine
      * @date 2015年4月27日
      * @version 1.0
      */

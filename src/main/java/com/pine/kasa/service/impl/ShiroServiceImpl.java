@@ -9,7 +9,7 @@ import com.pine.kasa.enums.RolePrimaryKeyEnum;
 import com.pine.kasa.filter.SpringContextHolder;
 import com.pine.kasa.service.RoleService;
 import com.pine.kasa.service.ShiroService;
-import com.pine.kasa.pojo.vo.permission.ResourceVO;
+import com.pine.kasa.model.vo.permission.ResourceVO;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;

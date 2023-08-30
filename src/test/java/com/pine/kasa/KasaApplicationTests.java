@@ -11,6 +11,7 @@ public class KasaApplicationTests {
 
     @Test
     public void contextLoads() {
+        System.out.println("ss");
     }
 
 }

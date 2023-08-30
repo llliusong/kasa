@@ -31,7 +31,7 @@ spring:
         username: root
         password: ALY2019@@
       second:  #数据源2 只读库
-        url: jdbc:mysql://47.110.43.11:3306/kasa?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://  /kasa?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
         username: root
         password: ALY2019@@
       initial-size: 10

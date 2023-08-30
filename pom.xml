@@ -255,6 +255,13 @@
         </dependency>
         <!---->
 
+        <!-- https://mvnrepository.com/artifact/org.roaringbitmap/RoaringBitmap -->
+        <dependency>
+            <groupId>org.roaringbitmap</groupId>
+            <artifactId>RoaringBitmap</artifactId>
+            <version>0.8.18</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -289,6 +296,14 @@
                     <encoding>utf-8</encoding>
                     <!--使用maven占位符 springboot占位符为@ -->
                     <useDefaultDelimiters>true</useDefaultDelimiters><!-- 这是重点 -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
                 </configuration>
             </plugin>
         </plugins>

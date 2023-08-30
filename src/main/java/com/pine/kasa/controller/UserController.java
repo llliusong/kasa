@@ -3,8 +3,8 @@ package com.pine.kasa.controller;
 import com.pine.kasa.common.Constant;
 import com.pine.kasa.common.ServiceResult;
 import com.pine.kasa.common.SessionUser;
-import com.pine.kasa.model.entity.primary.User;
 import com.pine.kasa.model.dto.UserDTO;
+import com.pine.kasa.model.entity.primary.User;
 import com.pine.kasa.service.UserService;
 import com.pine.kasa.utils.AssertUtils;
 import com.pine.kasa.utils.ValidationUtils;
@@ -13,9 +13,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -110,4 +109,30 @@ public class UserController {
         }
     }
 
+
+    /**
+     * key 是指传入时的参数
+     */
+    @Cacheable(value = "users", key = "#id")
+    public User find1(Integer id) {
+        return null;
+    }
+
+    // 表示第一个参数
+    @Cacheable(value = "users", key = "#p0")
+    public User find2(Integer id) {
+        return null;
+    }
+
+    // 表示User中的id值
+    @Cacheable(value = "users", key = "#user.id")
+    public User find3(User user) {
+        return null;
+    }
+
+    // 表示第一个参数里的id属性值
+    @Cacheable(value = "users", key = "#p0.id")
+    public User find(User user) {
+        return null;
+    }
 }
